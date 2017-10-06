@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+      <div>
+        <h1 id="navigation-basics">Navigation Basics</h1>
+        <p>This is a exercise work on Unity's navigation system.</p>
+        <iframe src="nav/index.html" style="border:0px #000000 none;" name="Game name" scrolling="no" frameborder="1" marginheight="px" marginwidth="320px" height="580px" width="960px"></iframe>
+        <h2 id="simple-navigation">Simple Navigation</h2>
+        <h3 id="operation-basics">Operation Basics</h3>
+        <ul>
+        <li>Try this free camera first! Move and see like an FPS game!</li>
+        <li>[asdw] to move the camera, mouse to rotate.</li>
+        <li>Navigation target call by mouse right click.</li>
+        <li>Command on a obstacle by mouse left click.</li>
+        <li>[arrow keys] to move the selected obstacle.</li>
+        </ul>
+        <h3 id="map-introduction">Map Introduction</h3>
+        <p>The whole map is separated with two rooms, which are connected by a weird bridge in the middle.</p>
+        <p>Room 1 aims for simulate a complex terrian. There's different level of terrs, cayons, ridges( agents like to walk on it! Feels like flying!), grass areas (which agent are not likely to put step on it, unless it's necessary. Also in room 2) etc.</p>
+        <p>There's also some obstacles you're able to command with. Also some other obstacles move themselves.</p>
+        <p>Room 2 is more or less a maze room.</p>
+        <h2 id="discusses">Discusses</h2>
+        <h3 id="location-occupation-detection">Location Occupation Detection</h3>
+        <p>When agents are on their way, we simply rely on the collision of the rigidbody between those agent. Because agents are potential &quot;movable&quot;, we should let them to have their &quot;trail move&quot;. Otherwise, if one of them have already touches its target, it means that this agent would occupy the position forever, and also mean that the other collider is not way further from its destination, and with high probability, it can not move closer to the target than current position. Thus, we could let this &quot;complete&quot; state propogate through those agents.</p>
+        <p>Also, this strategy is based on the assumption that all agents are sharing the same destination. If this is not true, one more step of comparing their destinations should be added before the state propogated.</p>
+        <h3 id="non-carving-obstacle-evation">Non-Carving Obstacle Evation</h3>
+        <p>Using raycast onto the desired direction. Moving towards the direction that the one have hit point of the raycast get closest to the destination. Raycast direction can be sampled by random normal distributed angle generator, or scanned with a threshold and a constant interval. The distance between hit point and destination can be tested by running Navmesh prediction one more time, or some other navigating algorithm</p>
+        <h3 id="obstacle-carving-tradeoff">Obstacle Carving Tradeoff</h3>
+        <p>If we carve a dynamic obstacle in every frame, the computation time to generate the navmesh becomes unaffordable.</p>
+        <p>If we never carve any obstacle in a navmesh, the navmesh would becomes a uniformed ground. And the navmesh path plan becomes invaluable, lots of other effort will be costed to get the correct navigation path.</p>
+      </div>
+  </body>
+</html>
